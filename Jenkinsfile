@@ -42,7 +42,7 @@ pipeline {
                 echo "Deploying to EC2..."
                 sshagent([SSH_KEY_ID]) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
+                        ssh -o StrictHostKeyChecking=no ubuntu@35.169.106.63 '
                             docker pull $DOCKER_IMAGE
                             docker stop devops-site || true && docker rm devops-site || true
                             docker run -d -p 80:80 --name devops-site $DOCKER_IMAGE

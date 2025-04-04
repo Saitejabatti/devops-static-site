@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'saitejabatti/devops-static-site'
         DOCKER_CREDENTIALS_ID = 'docker-hub-creds' // Jenkins credentials ID
         EC2_USER = 'ubuntu'
-        EC2_HOST = 'your-ec2-public-ip'
+        EC2_HOST = '3.86.166.2'
         SSH_KEY_ID = 'ec2-ssh-key' // Jenkins credentials ID for SSH private key
     }
 

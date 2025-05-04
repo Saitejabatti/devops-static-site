@@ -2,34 +2,31 @@ pipeline {
     agent any
 
     environment {
-        EC2_USER = 'ec2-user'
-        EC2_HOST = '18.206.224.153'  // Replace with Elastic IP
-        EC2_KEY = '/var/lib/jenkins/awslogin.pem'
-' // Jenkins server path to .pem
-        TARGET_DIR = '/var/www/html'      // Example: Apache web root
+        PEM_PATH = 'C:/Users/ASUS/Downloads/awslogin.pem' // Local path to your .pem file
+        EC2_IP = '18.206.224.153'
+        SSH_USER = 'ubuntu'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Saitejabatti/devops-static-site.git'
+                git 'https://github.com/Saitejabatti/devops-static-site.git'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building the static website...'
-                // For static HTML sites, this may be minimal or empty
+                // If any build command needed, add here (like npm build)
             }
         }
 
         stage('Deploy to EC2') {
             steps {
-                echo "Deploying to EC2 instance..."
+                echo 'Deploying to EC2 instance...'
+                // Replace index.html path as needed
                 sh """
-                chmod 400 ${EC2_KEY}
-                scp -o StrictHostKeyChecking=no -i ${EC2_KEY} -r * ${EC2_USER}@${EC2_HOST}:${TARGET_DIR}
+                    scp -i "$PEM_PATH" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null index.html $SSH_USER@$EC2_IP:/var/www/html/
                 """
             }
         }
@@ -37,7 +34,7 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment completed successfully.'
+            echo 'Deployment successful!'
         }
         failure {
             echo 'Deployment failed.'

@@ -4,7 +4,8 @@ pipeline {
     environment {
         EC2_USER = 'ec2-user'
         EC2_HOST = '18.206.224.153'  // Replace with Elastic IP
-        EC2_KEY = '/path/to/your/key.pem' // Jenkins server path to .pem
+        EC2_KEY = '/var/lib/jenkins/awslogin.pem'
+' // Jenkins server path to .pem
         TARGET_DIR = '/var/www/html'      // Example: Apache web root
     }
 

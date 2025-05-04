@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'saitejabatti/devops-static-site'
         DOCKER_CREDENTIALS_ID = 'docker-hub-creds' // Jenkins credentials ID
         EC2_USER = 'ubuntu'
-        EC2_HOST = '3.86.166.2'
+        EC2_HOST = '18.206.224.153'
         SSH_KEY_ID = 'ec2-ssh-key' // Jenkins credentials ID for SSH private key
     }
 
@@ -42,7 +42,7 @@ pipeline {
                 echo "Deploying to EC2..."
                 sshagent([SSH_KEY_ID]) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@35.169.106.63 '
+                        ssh -o StrictHostKeyChecking=no ubuntu@18.206.224.153 '
                             docker pull $DOCKER_IMAGE
                             docker stop devops-site || true && docker rm devops-site || true
                             docker run -d -p 80:80 --name devops-site $DOCKER_IMAGE
